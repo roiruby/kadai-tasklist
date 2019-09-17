@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:index, :show]
+  before_action :correct_user, only: [:show]
   
   def index
     @users = User.order(id: :desc).page(params[:page]).per(25)
@@ -28,8 +29,15 @@ class UsersController < ApplicationController
   end
 
   private
+  
+  def correct_user
+    @user = current_user.tasks.find_by(id: params[:id])
+    unless @user
+      redirect_to root_url
+    end
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
   end
 end

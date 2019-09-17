@@ -12,6 +12,7 @@
       </div>
           
       <% if current_user == task.user %>
+            <%= link_to "編集する", task, class: 'btn btn-light btn-sm' %>
             <%= link_to "Delete", task, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
           <% end %>
     </li>

@@ -11,6 +11,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    set_task
   end
 
   def new
@@ -30,12 +31,13 @@ class TasksController < ApplicationController
   end
 
   def edit
+    set_task
   end
 
   def update
     if @task.update(task_params)
       flash[:success] = '正常に更新されました'
-      redirect_to @task
+      redirect_to root_url
     else
       flash.now[:danger] = '更新されませんでした'
       render :edit
